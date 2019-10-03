@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Feedback</title>
+
+    {% load staticfiles %}
+    <link href="{% static "css/bootstrap-responsive.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "css/gotham/stylesheet.css" %}">
+    <link rel="stylesheet" media="all" href="{% static "css/main.css" %}">
+
+    <script src="{% static "jquery/jquery-2.1.3.min.js" %}"></script>
+    <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+    <script src="{% static "js/jquery.form.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+
+</head>
+<body>
+
+<!--<header>-->
+<!--	<div class="container">-->
+<!--		<div class="row">-->
+<!--			<div class="col-sm-4">-->
+<!--				<a href="?url=inicio">-->
+<!--					&lt;!&ndash;<div class="logo-header"></div>&ndash;&gt;-->
+<!--				</a>-->
+<!--			</div>-->
+<!--			<div class="col-sm-5">-->
+<!--				<p>USUÁRIO: <span> User </span></p>-->
+<!--			</div>-->
+<!--			<div class="col-sm-3">-->
+<!--				<div class="header-links">-->
+<!--					<a href="?section=home"><div class="home links tooltips" data-toggle="tooltip" data-placement="bottom" title="Voltar para o início"></div></a>-->
+<!--					<a href=""><div class="logout links tooltips" data-toggle="tooltip" data-placement="bottom" title="Sair"></div></a>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</header>-->
+
+<header>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<a href="?url=inicio">
+					<div class="logo-header"></div>
+				</a>
+			</div>
+			<div class="col-sm-5">
+
+			</div>
+			<div class="col-sm-3">
+
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 container-login">
+			<div class="header-login">
+					Feedback Text
+				</div>
+			<div class="login">
+				<form method="post" id="form_add" action="{% url 'url_processa' %}">
+					{% csrf_token %}
+					<div class="form-group">
+						<label for=""> Text</label>
+						<textarea name="mensagem" id="texto"  cols="30" rows="20" class="form-control">
+						</textarea>
+					</div>
+
+
+					<div class="form-group">
+						<button class="bt-padrao" type="submit">Verify</button>
+					</div>
+				</form>
+			</div>
+			<div class="login">
+				<form method="post" id="form_add" action="{% url 'url_carrega' %}">
+					{% csrf_token %}
+
+					<div class="form-group">
+						<button class="bt-padrao" type="submit">Start Classifier</button>
+					</div>
+				</form>
+
+				<div class='conteudo3'>
+				<div id="barras2">
+					{% if dados == "pronto" %}
+					<br>
+					<div id="barra200" style="width:30%"> Classifier is ready! </div>
+					<br>
+					{% endif %}
+				</div>
+			</div>
+
+			</div>
+
+
+
+
+
+		</div>
+		<div class="col-sm-4 container-login">
+			<div class="header-login">
+					Good Practices
+			</div>
+			<div class='conteudo3'>
+				<div id="barras">
+					<br>
+<!--					{{ classe }}-->
+					{% if classe == 1 %}
+						<div id="barra75" style="width:100%"> Text has Good Practice </div>
+						<br>
+					{% elif classe == 0  %}
+						<div id="barra25" style="width:100%"> Text has no Good Practice </div>
+					{% else %}
+					{% endif%}
+
+
+<!--					<br>-->
+<!--					<div id="barra75" style="width:100%"> GP1 </div> <br>-->
+<!--					<div id="barra25" style="width:100%"> GP2 </div> <br>-->
+<!--					<div id="barra75" style="width:100%"> GP3 </div> <br>-->
+<!--					<div id="barra25" style="width:100%"> GP4 </div> <br>-->
+<!--					<div id="barra25" style="width:100%"> GP5 </div> <br>-->
+<!--					<div id="barra25" style="width:100%"> GP6 </div> <br>-->
+<!--					<div id="barra75" style="width:100%"> GP7 </div> <br>-->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<!--<a href="?url=inicio"><div class="logo-footer"></div></a>-->
+				<p>2019</p>
+			</div>
+
+			<div class="col-xs-12">
+
+			</div>
+
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>
