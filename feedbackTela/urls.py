@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from feedbackApp.views import home, dados, processa, carregaClassificador
+from feedbackApp.views import home, dados, processa, load_classifier
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -24,5 +24,5 @@ urlpatterns = [
     path('home/', home),
     path('dados/', dados),
     path('processa/', processa, name="url_processa"),
-    path('carregaclassificador/', carregaClassificador , name="url_carrega"),
+    path('carregaclassificador/', load_classifier, name="url_carrega"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

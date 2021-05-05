@@ -11,12 +11,16 @@ import os
 
 from nltk.tokenize import word_tokenize
 import string
-#import spacy
-#nlp = spacy.load('pt')
+import nltk
+nltk.download('punkt')
+# import spacy
+# nlp = spacy.load('pt')
 
 # Create your views here.
 
-classificador = RandomForestClassifier(n_estimators=200, max_features=37, warm_start=True, oob_score=True)
+classifiers = []
+for i in range(11):
+    classifiers.append(RandomForestClassifier(n_estimators=200, max_features=37, warm_start=True, oob_score=True))
 
 def home(request):
     data = {}
@@ -41,7 +45,9 @@ def processa(request):
     liwc = []
     liwc = extractLiwc(texto)
     print("liwc = ",liwc)
+    print(len(liwc))
     adds = aditionals(texto)
+    print(len(adds))
     cohmetrix = [50.0, 0.0, 500.0, 86.405, 450.0, 2.0, 2.5, 10.0, 150.0, 1.0, 2.0, 20.0, 100.0, 300.0, 50.0, 0.0, 0.0,
                  0.0, 50.0, 76562.5, 3441.5, 1.0, 0.0, 0.0, 0.95, 0.25, 250.0, 0.0, 150.0, 0.0, 50.0, 0.0, 100.0, 0.0,
                  0.0, 0.0, 0.0, 0.0, 0.0, 1.66666666666667, 10.8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -66,55 +72,64 @@ def processa(request):
     data['classe'] = y_pred[0]
     return render(request, 'feedbackApp/home.html', data )
 
-def carregaClassificador(request):
+
+def load_classifier(request):
     print(os.getcwd())
+    csv_classes = "feedbackApp/classes.csv"
+    classes = read_classes(csv_classes)
 
-    #csvTest = "C:\\Users\\Anderson\\PycharmProjects\\FeedbackProject\\feedbackApp\\baseComClassesTeste.csv"
-    csvTest = "feedbackApp/baseComClassesTeste.csv"
-    data_test, X_test, y_test = carregar_dados(csvTest)
-
-    csvTrain = "feedbackApp/baseComClassesTreino.csv"
-    data_train, X_train, y_train = carregar_dados(csvTrain)
-
+    csv_features = "feedbackApp/features.csv"
+    data_train, features = read_data(csv_features)
     X1 = None
     y1 = None
     metricas = ["acurácia", "kappa", "OOB_erro"]
 
-    resultados = {}
-    resultados.update({'ntree': []})
-    resultados.update({'mtry': []})
+    for j in range(len(classes)):
+        resultados = {}
+        resultados.update({'ntree': []})
+        resultados.update({'mtry': []})
 
-    classes = set(y_train)
-    for i in classes:
-        resultados.update({"erro_classe_" + str(i): []})
-    for metrica in metricas:
-        resultados.update({metrica: []})
+        y_train = set(classes[j])
+        resultados.update({"erro_classe_" + str(0): []})
+        resultados.update({"erro_classe_" + str(1): []})
+        for metrica in metricas:
+            resultados.update({metrica: []})
 
-    global classificador
+        global classifiers
+        resultados, classifiers[j] = validacao_cruzada(features, y_train, X1, y1, k=10, ntree=200, mtry=37,
+                                                       metricas=metricas, resultados=resultados)
+        print(resultados)
+        data = {}
+        data['dados'] = "pronto"
 
-    resultados, classificador = validacao_cruzada(X_train, y_train, X1, y1, k=10, ntree=200, mtry=37, metricas=metricas,
-                                                  resultados=resultados)
-
-    data = {}
-    data['dados'] = "pronto"
 
     return render(request, 'feedbackApp/home.html', data)
 
 
-def carregar_dados(csv):
+def read_classes(path):
+    data = pd.read_csv(path)
+    id_name = data.keys()[0]
+    vector = []
+    print(id_name)
+    # Remove id col
+    del data[id_name]
+    # 11 -> classes number
+    for i in range(11):
+        vector.append(data[data.keys()[i]].values.tolist())
+    return vector
 
+
+def read_data(csv):
     data = pd.read_csv(csv)
 
-    classe = data.keys()[-1] #Pega o nome da coluna das classes
+    # id col name
+    id_name = data.keys()[0]
+    new_data = data.copy()
 
-    y = data[classe] #y Recebe as classes de todas as instâncias da base de dados
+    # Remove id col
+    del new_data[id_name]
+    return data, new_data.values.tolist()
 
-    for i in data:
-        i = str(i)
-    X = data.copy()
-    del X[classe] #Recebe os demais atributos
-
-    return data, X.values.tolist(), y.tolist()
 
 def search(lista, valor):
     return [lista.index(x) for x in lista if valor in x]
@@ -122,7 +137,7 @@ def search(lista, valor):
 def extractLiwc(text):
 
     # reading liwc
-    wn = open('feedbackApp/LIWC2007_Portugues_win.dic.txt', 'r', encoding='ansi', errors='ignore').read().split('\n')
+    wn = open('feedbackApp/LIWC2007_Portugues_win.dic.txt', 'r', encoding='utf-8', errors='ignore').read().split('\n')
     wordSetLiwc = []
     for line in wn:
         words = line.split('\t')
