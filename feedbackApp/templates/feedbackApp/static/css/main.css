@@ -552,7 +552,7 @@ header .links:hover{
 
 }
 
-.conteudo2 #barra25, #barra50, #barra75, #barra100 {
+.conteudo2 .barra25, .barra50, .barra75, .barra100 {
 
 	color:#FFF;
 
@@ -568,13 +568,13 @@ header .links:hover{
 
 }
 
-.conteudo2 #barra25{ background-color: #FF4119; } 
+.conteudo2 .barra25{ background-color: #FF4119; }
 
-.conteudo2 #barra50{ background-color: #FFB813; }
+.conteudo2 .barra50{ background-color: #FFB813; }
 
-.conteudo2 #barra75{ background-color: #88CC14; }
+.conteudo2 .barra75{ background-color: #88CC14; }
 
-.conteudo2 #barra100{ background-color: #004CFF; }
+.conteudo2 .barra100{ background-color: #004CFF; }
 
 
 
@@ -608,7 +608,7 @@ header .links:hover{
 
 
 
-.conteudo3 #barra25, #barra50, #barra75, #barra100, #barra200 {
+.conteudo3 .barra25, .barra50, .barra75, .barra100, .barra200 {
 
 	color:#FFF;
 
@@ -624,15 +624,15 @@ header .links:hover{
 
 }
 
-.conteudo3 #barra25{ background-color: #FF4119; }
+.conteudo3 .barra25{ background-color: #FF4119; }
 
-.conteudo3 #barra50{ background-color: #FFB813; }
+.conteudo3 .barra50{ background-color: #FFB813; }
 
-.conteudo3 #barra75{ background-color: #88CC14; }
+.conteudo3 .barra75{ background-color: #88CC14; }
 
-.conteudo3 #barra100{ background-color: #004CFF; }
+.conteudo3 .barra100{ background-color: #004CFF; }
 
-.conteudo3 #barra200{ background-color: #88CC14; }
+.conteudo3 .barra200{ background-color: #88CC14; }
 
 
 .conteudo3 #informacoes {
