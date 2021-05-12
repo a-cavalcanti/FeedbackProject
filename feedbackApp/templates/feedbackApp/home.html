@@ -20,28 +20,6 @@
 
 </head>
 <body>
-
-<!--<header>-->
-<!--	<div class="container">-->
-<!--		<div class="row">-->
-<!--			<div class="col-sm-4">-->
-<!--				<a href="?url=inicio">-->
-<!--					&lt;!&ndash;<div class="logo-header"></div>&ndash;&gt;-->
-<!--				</a>-->
-<!--			</div>-->
-<!--			<div class="col-sm-5">-->
-<!--				<p>USUÁRIO: <span> User </span></p>-->
-<!--			</div>-->
-<!--			<div class="col-sm-3">-->
-<!--				<div class="header-links">-->
-<!--					<a href="?section=home"><div class="home links tooltips" data-toggle="tooltip" data-placement="bottom" title="Voltar para o início"></div></a>-->
-<!--					<a href=""><div class="logout links tooltips" data-toggle="tooltip" data-placement="bottom" title="Sair"></div></a>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</header>-->
-
 <header>
 	<div class="container">
 		<div class="row">
@@ -67,7 +45,14 @@
 					Feedback Text
 				</div>
 			<div class="login">
-				<form method="post" id="form_add" action="{% url 'url_processa' %}">
+				<form method="post" id="form_add" action="{% url 'url_home' %}">
+					{% csrf_token %}
+					<div class="form-group">
+						<button class="bt-padrao" type="submit">Home</button>
+					</div>
+				</form>
+
+				<form method="post" id="form_add" action="{% url 'url_process' %}">
 					{% csrf_token %}
 					<div class="form-group">
 						<label for=""> Text</label>
@@ -82,7 +67,7 @@
 				</form>
 			</div>
 			<div class="login">
-				<form method="post" id="form_add" action="{% url 'url_carrega' %}">
+				<form method="post" id="form_add" action="{% url 'url_load' %}">
 					{% csrf_token %}
 
 					<div class="form-group">
@@ -99,13 +84,7 @@
 					{% endif %}
 				</div>
 			</div>
-
 			</div>
-
-
-
-
-
 		</div>
 		<div class="col-sm-4 container-login">
 			<div class="header-login">
@@ -203,22 +182,10 @@
 						<div class="barra25" style="width:50%"> FS Level </div>
 					{% else %}
 					{% endif%}
-
-
-<!--					<br>-->
-<!--					<div id="barra75" style="width:50%"> GP1 </div> <br>-->
-<!--					<div id="barra25" style="width:50%"> GP2 </div> <br>-->
-<!--					<div id="barra75" style="width:50%"> GP3 </div> <br>-->
-<!--					<div id="barra25" style="width:50%"> GP4 </div> <br>-->
-<!--					<div id="barra25" style="width:50%"> GP5 </div> <br>-->
-<!--					<div id="barra25" style="width:50%"> GP6 </div> <br>-->
-<!--					<div id="barra75" style="width:50%"> GP7 </div> <br>-->
-
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 
 <footer>
@@ -228,11 +195,8 @@
 				<!--<a href="?url=inicio"><div class="logo-footer"></div></a>-->
 				<p>2019</p>
 			</div>
-
 			<div class="col-xs-12">
-
 			</div>
-
 		</div>
 	</div>
 </footer>

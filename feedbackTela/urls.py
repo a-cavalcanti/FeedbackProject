@@ -15,14 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from feedbackApp.views import home, dados, processa, load_classifier
+from feedbackApp.views import home, dados, process_text, load_classifier
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', home),
+    path('home/', home, name="url_home"),
     path('dados/', dados),
-    path('processa/', processa, name="url_processa"),
-    path('carregaclassificador/', load_classifier, name="url_carrega"),
+    path('process_text/', process_text, name="url_process"),
+    path('load_classifier/', load_classifier, name="url_load"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

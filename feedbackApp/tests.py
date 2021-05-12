@@ -2,7 +2,7 @@ import os
 
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from views import extractLiwc, validacao_cruzada, aditionals
+from views import extract_liwc, cross_validation, additionals
 
 
 classifiers = []
@@ -67,8 +67,8 @@ def load_classifier():
             resultados.update({metrica: []})
 
         global classifiers
-        resultados, classifiers[j] = validacao_cruzada(features, y_train, X1, y1, k=10, ntree=200, mtry=37,
-                                                       metricas=metricas, resultados=resultados)
+        resultados, classifiers[j] = cross_validation(features, y_train, X1, y1, k=10, ntree=200, mtry=37,
+                                                      metricas=metricas, resultados=resultados)
         print(resultados)
         data = {}
         data['dados'] = "pronto"
@@ -78,8 +78,8 @@ def predict_classes():
     for j in range(11):
         texto = "Excelente aluno! Parabéns. Você fez uma ótima atividade!"
 
-        liwc = extractLiwc(texto)
-        adds = aditionals(texto)
+        liwc = extract_liwc(texto)
+        adds = additionals(texto)
         cohmetrix = [50.0, 0.0, 500.0, 86.405, 450.0, 2.0, 2.5, 10.0, 150.0, 1.0, 2.0, 20.0, 100.0, 300.0, 50.0, 0.0, 0.0,
                      0.0, 50.0, 76562.5, 3441.5, 1.0, 0.0, 0.0, 0.95, 0.25, 250.0, 0.0, 150.0, 0.0, 50.0, 0.0, 100.0, 0.0,
                      0.0, 0.0, 0.0, 0.0, 0.0, 1.66666666666667, 10.8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
