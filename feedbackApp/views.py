@@ -22,7 +22,6 @@ nltk.download('punkt')
 
 classifiers = []
 for i in range(11):
-    # classifiers.append(RandomForestClassifier(n_estimators=200, max_features=37, warm_start=True, oob_score=True))
     classifiers.append(xgb.XGBClassifier(n_estimators=500, use_label_encoder=False))
 
 
@@ -221,7 +220,7 @@ def cross_validation(X, y, k, ntree, mtry, resultados):
 
     # SAVING PARAMETERS AND EXPERIMENT RESULTS
     resultados['ntree'].append(classificador.n_estimators)
-    erro_por_classe(matriz_confusao, resultados)
+    error_by_class(matriz_confusao, resultados)
 
     media = np.mean(resultados_parciais["acurácia"])
     std = np.std(resultados_parciais["acurácia"])
@@ -237,7 +236,7 @@ def cross_validation(X, y, k, ntree, mtry, resultados):
     return resultados, classificador
 
 
-def erro_por_classe(matriz_confusao, resultados):
+def error_by_class(matriz_confusao, resultados):
     tam = matriz_confusao.shape[0]
 
     for i in range(tam):
